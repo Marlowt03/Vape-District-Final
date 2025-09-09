@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Disposable Cartridges — Vape District</title>
+<link rel="stylesheet" href="style.css" />
+
+<style>
+  /* --- Page scope only (won’t clobber global nav) --- */
+  :root{ --wrap:1120px; --pad:16px; --nav-h:72px; }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    margin-top:var(--nav-h);
+    height:400px; /* bigger per your request */
+    background-image:url("images/21-_DSC5504.jpg");
+    background-position:center 45%;
+    background-repeat:no-repeat;
+    background-size:95%;            /* gentle zoom-out */
+    background-color:#0b0b0b;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; color:#fff;
+  }
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background:rgba(0,0,0,.22);     /* lighter overlay so it’s not greyed out */
+    pointer-events:none;            /* overlay will never block clicks */
+  }
+  .hero .inner{ position:relative; z-index:2; max-width:var(--wrap); padding:0 var(--pad); }
+  .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35); }
+  .hero p{ margin:0 0 14px; font-size:clamp(14px,2.8vw,18px); opacity:.98; text-shadow:0 2px 6px rgba(0,0,0,.35); }
+
+  .actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+  /* TOP ghost button (white) */
+  .btn{
+    appearance:none; border:0; border-radius:12px; padding:12px 20px;
+    font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    transition:transform .08s, box-shadow .2s, background .2s, color .2s;
+    cursor:pointer;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn-ghost-white{ background:#fff; color:#0b1f33; box-shadow:0 10px 24px rgba(0,0,0,.18); }
+  .btn-ghost-white:hover{ background:#f5f7fb; }
+
+  /* CONTENT WRAP */
+  .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+
+  /* HEADERS ABOVE GRID */
+  .page-title{ margin:26px 0 4px; text-align:center; font-size:1.6rem; font-weight:900; color:#13293d; }
+  .page-sub{ margin:0 0 16px; text-align:center; color:#526173; }
+
+  /* BRAND GRID — more breathing room */
+  .grid{
+    display:grid;
+    gap: clamp(28px, 3vw, 56px);     /* was 22px */
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    justify-items:center;
+  }
+  @media (min-width:760px){ .grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+
+  .card{
+    width:100%; max-width:240px;
+    background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10);
+    text-align:center; padding:20px;   /* was 14px */
+  }
+  .thumb{
+    height:148px; background:#f6f7f9; border-radius:14px;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .thumb img{ width:auto; height:130px; object-fit:contain; display:block; }
+  .card h3{ margin:10px 0 0; font-size:18px; font-weight:800; color:#0f2436; }
+
+  /* FEATURED STRIP + MARQUEE */
+  .strip{ background:#fff; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
+  .strip h2{ margin:0 0 6px; text-align:center; font-size:1.4rem; font-weight:900; color:#13293d; }
+  .strip p{ margin:0 0 10px; text-align:center; color:#526173; }
+
+  .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
+  .track{
+    display:inline-flex; align-items:center; gap:18px;
+    will-change:transform; backface-visibility:hidden;
+    animation: roll linear infinite var(--dur,26s);
+  }
+  .item{
+    background:#fff; border-radius:16px; padding:12px; min-width:220px;
+    box-shadow:0 10px 22px rgba(0,0,0,.12);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .item img{ height:140px; width:auto; object-fit:contain; display:block; }
+  @keyframes roll{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
+
+  /* BOTTOM CTA */
+  .cta{
+    background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
+    padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px;
+  }
+  .cta h3{ margin:0 0 10px; font-size:2rem; font-weight:900; color:#13293d; }
+  .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
+  .btn-blue{
+    background:#1a73e8; color:#fff; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08);
+  }
+  .btn-blue:hover{ background:#1567cf; }
+
+  /* FOOTER (dark blue) */
+  .footer{
+    background:linear-gradient(180deg,#0b2a36 0%, #06212b 100%);
+    color:#e7f2f9; text-align:center; padding:34px var(--pad) 44px;
+    margin-top:22px;
+  }
+  .footer a{ color:#7fc3ff; text-decoration:none; }
+  .footer a:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<!-- NAV: uses your site’s global nav styles in style.css -->
+<nav>
+  <a class="nav-logo" href="index.html">Vape District</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="dropdown">
+      <a href="#">Shop</a>
+      <div class="dropdown-content">
+        <div class="submenu">
+          <a href="420.html" class="has-sub">420</a>
+          <div class="sub-dropdown">
+            <a href="420-wraps.html">Wraps</a>
+            <a href="420-cartridges.html">420 Cartridges</a>
+            <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+            <a href="420-glass.html">Glass</a>
+            <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+            <a href="420-batteries.html">Batteries</a>
+          </div>
+        </div>
+        <div class="submenu">
+          <a href="vapes.html" class="has-sub">Vapes</a>
+          <div class="sub-dropdown">
+            <a href="vape-juice.html">Vape Juice</a>
+            <a href="vape-devices.html">Devices</a>
+            <a href="vape-disposables.html">Disposables</a>
+            <a href="vape-mods.html">Mods</a>
+          </div>
+        </div>
+        <a href="detox.html">Pass A Dr*g Test / Detox</a>
+        <a href="mystery-boxes.html">Mystery Boxes</a>
+      </div>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="menu-toggle">☰</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="inner">
+    <h1>Disposable Cartridges</h1>
+    <p>High quality, great flavors, ready to use.</p>
+    <div class="actions>
+      <a class="btn btn-ghost-white" href="contact.html">Call or Visit</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2 class="page-title">Explore our most popular disposable cartridges.</h2>
+  <p class="page-sub">High quality, great flavors, ready to use.</p>
+
+  <!-- Brand cards -->
+  <section class="grid" aria-label="Popular brands">
+    <article class="card"><div class="thumb"><img src="images/Space Gods Png.webp" alt="Space Gods"></div><h3>Space Gods</h3></article>
+    <article class="card"><div class="thumb"><img src="images/Hidden Hills Png.webp" alt="Hidden Hills"></div><h3>Hidden Hills</h3></article>
+    <article class="card"><div class="thumb"><img src="images/Torch.png" alt="Torch"></div><h3>Torch</h3></article>
+    <article class="card"><div class="thumb"><img src="images/Loose Change.png" alt="Loose Change"></div><h3>Loose Change</h3></article>
+  </section>
+</main>
+
+<!-- Featured slider (gapless) -->
+<section class="strip" aria-label="Featured Disposables">
+  <div class="wrap">
+    <h2>Featured Disposables</h2>
+    <p>Smooth, gapless carousel — always in motion.</p>
+  </div>
+  <div class="marquee" id="marq" data-speed="26">
+    <ul class="track" id="track">
+      <li class="item"><img src="images/Space Gods Png.webp" alt="Space Gods"></li>
+      <li class="item"><img src="images/Hidden Hills Png.webp" alt="Hidden Hills"></li>
+      <li class="item"><img src="images/Torch.png" alt="Torch"></li>
+      <li class="item"><img src="images/Loose Change.png" alt="Loose Change"></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Bottom CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h3>Looking for something specific?</h3>
+    <p>We stock more in-store than online. Call and we’ll check today’s case for flavors and brands in stock.</p>
+    <div class="actions">
+      <a class="btn btn-blue" href="tel:+14405582671">Call Now</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+</footer>
+
+<script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Gapless marquee (keeps your no-blank behavior)
+  (function(){
+    const mq = document.getElementById('marq');
+    const track = document.getElementById('track');
+    if(!mq || !track) return;
+
+    function fill(){
+      // remove old clones
+      track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+      const need = mq.clientWidth * 2 + 40; // fill 2x width + buffer
+      let w = track.scrollWidth;
+      while (w < need){
+        track.querySelectorAll(':scope > .item').forEach(i=>{
+          const c = i.cloneNode(true); c.setAttribute('data-clone','1'); track.appendChild(c);
+        });
+        w = track.scrollWidth;
+      }
+      track.style.setProperty('--dist', `-${w/2}px`);
+      track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
+    }
+    fill();
+    let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(fill,120); }, {passive:true});
+  })();
+</script>
+</body>
+</html>

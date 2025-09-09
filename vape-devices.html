@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Vape Devices — Vape District</title>
+<link rel="stylesheet" href="style.css" />
+
+<style>
+  .devices-page { --max:1120px; --brand:#1a73e8; --brand2:#1567cf; --grey:#f7f8fa; }
+
+  /* NAV safety: keep nav on top but not covering the page */
+  nav{ position:relative; z-index:30; }
+  nav .dropdown-content{ position:absolute; top:100%; left:0; min-width:220px; }
+
+  /* HERO – use the image in /images/ and keep overlay behind content */
+.devices-page .hero {
+  position: relative;
+  z-index: 0;
+  color: #fff;
+  text-align: center;
+  background: #0b0d10 url('images/device_package.jpg') center/cover no-repeat;
+  height: 280px;           /* fixed height instead of full screen */
+  padding: 40px 16px;      /* even spacing */
+}
+@media (max-width: 720px) {
+  .devices-page .hero {
+    height: 200px;         /* smaller on mobile */
+    padding: 30px 14px;
+  }
+}
+  .devices-page .hero::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,.28));
+    z-index:0; pointer-events:none; /* <- don’t block clicks */
+  }
+  .devices-page .hero .inner{ position:relative; z-index:1; max-width:var(--max); margin:0 auto; }
+  .devices-page .hero h1{ margin:0 0 8px; font-size:2.6rem; font-weight:800; }
+  .devices-page .hero p{ margin:0; opacity:.95; }
+  .devices-page .actions{ margin-top:18px; display:flex; gap:12px; justify-content:center; }
+  .devices-page .btn{ appearance:none; border:0; border-radius:12px; padding:14px 22px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; }
+  .devices-page .btn--ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16); }
+  .devices-page .btn--ghost:hover{ background:#f4f6fb; }
+
+  .devices-page .container{ max-width:var(--max); margin:0 auto; padding:0 16px; }
+
+  .devices-page .grid-wrap{ background:var(--grey); padding:28px 0 6px; }
+  .devices-page .section-sub{ margin:0 0 18px; color:#2a3542; font-weight:700; }
+  .devices-page .grid{ display:grid; gap:22px; grid-template-columns:repeat(2,1fr); }
+  @media (min-width:680px){ .devices-page .grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (min-width:980px){ .devices-page .grid{ grid-template-columns:repeat(5,1fr); } }
+  .devices-page .card{ background:#fff; border-radius:16px; padding:16px 14px; text-align:center; box-shadow:0 10px 18px rgba(0,0,0,.08); }
+  .devices-page .card img{ width:100%; height:110px; object-fit:contain; background:#f6f7f9; border-radius:12px; }
+  .devices-page .card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; }
+
+  .devices-page .strip{ background:#fff; color:#111; padding:30px 0 20px; border-top:1px solid #eef2f7; }
+  .devices-page .title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
+  .devices-page .sub{ margin:0 0 8px; color:#495869; }
+
+  .devices-page .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
+  .devices-page .marquee__track{
+    display:inline-flex; align-items:center; gap:20px;
+    will-change:transform; backface-visibility:hidden;
+    animation:marqueeX var(--dur,30s) linear infinite;
+  }
+  .devices-page .marq-item{ background:#fff; border-radius:16px; padding:14px; min-width:240px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
+  .devices-page .marq-item img{ height:150px; width:auto; object-fit:contain; }
+  @keyframes marqueeX{ from{ transform:translateX(0); } to{ transform:translateX(var(--dist,-100%)); } }
+  @media (prefers-reduced-motion:reduce){ .devices-page .marquee__track{ animation:none!important; } }
+
+  .devices-page .cta{ background:linear-gradient(180deg,#f7f9fc 0%,#eef3f9 100%); padding:54px 16px; text-align:center; margin-top:36px; border-top:1px solid #e7edf5; }
+  .devices-page .cta h3{ font-size:2.1rem; margin:0 0 10px; color:#13293d; font-weight:800; }
+  .devices-page .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; }
+  .devices-page .cta .btn{ background:var(--brand); color:#fff; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
+  .devices-page .cta .btn:hover{ background:var(--brand2); }
+
+  .devices-page .footer .inner{ max-width:var(--max); margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; }
+</style>
+</head>
+<body class="devices-page">
+
+<nav>
+  <a href="index.html" class="nav-logo">Vape District</a>
+  <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
+  <ul class="nav-links" id="main-nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+      <div class="dropdown-content">
+        <a href="420.html">420 ▸</a>
+        <a href="vapes.html">Vapes ▸</a>
+        <a href="detox.html">Pass A Dr*g Test / Detox</a>
+        <a href="mystery-boxes.html">Mystery Boxes</a>
+      </div>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="inner">
+    <h1>Vape Devices</h1>
+    <p>Caliburn, SMOK Novo, Vaporesso XROS, Suorin & more.</p>
+    <div class="actions">
+      <a class="btn btn--ghost" href="contact.html">Call or Visit</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="grid-wrap">
+    <div class="container">
+      <p class="section-sub">Explore our most popular device brands.</p>
+      <div class="grid">
+        <figure class="card"><img src="images/Caliburn.png" alt="Caliburn" loading="lazy"><figcaption>Caliburn</figcaption></figure>
+        <figure class="card"><img src="images/Smok Novo.png" alt="SMOK Novo" loading="lazy"><figcaption>SMOK Novo</figcaption></figure>
+        <figure class="card"><img src="images/xros png.webp" alt="Vaporesso XROS" loading="lazy"><figcaption>Vaporesso XROS</figcaption></figure>
+        <figure class="card"><img src="images/Souruin Drop 2.png" alt="Suorin Drop 2" loading="lazy"><figcaption>Suorin Drop 2</figcaption></figure>
+        <figure class="card"><img src="images/Sourin Air Pro png.webp" alt="Suorin Air Pro" loading="lazy"><figcaption>Suorin Air Pro</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip" aria-label="Featured Devices">
+    <div class="container">
+      <h2 class="title">Featured Devices</h2>
+      <p class="sub">A curated lineup of top-selling devices to fit every style of vaping.</p>
+    </div>
+    <div class="marquee" id="dev-marquee">
+      <ul class="marquee__track" id="dev-track">
+        <li class="marq-item"><img src="images/Caliburn.png" alt="Caliburn"></li>
+        <li class="marq-item"><img src="images/Smok Novo.png" alt="SMOK Novo"></li>
+        <li class="marq-item"><img src="images/xros png.webp" alt="Vaporesso XROS"></li>
+        <li class="marq-item"><img src="images/Souruin Drop 2.png" alt="Suorin Drop 2"></li>
+        <li class="marq-item"><img src="images/Sourin Air Pro png.webp" alt="Suorin Air Pro"></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h3>Not seeing the device you want?</h3>
+      <p>We carry many more devices and colors in-store. Call and we’ll check today’s stock for you.</p>
+      <a class="btn" href="tel:+14405582671">Call Now</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="inner">
+    <p style="margin:0">&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+    <p style="margin:0">6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  document.querySelector('.menu-toggle')?.addEventListener('click', function(){
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
+    nav.classList.toggle('show');
+    this.setAttribute('aria-expanded', nav.classList.contains('show') ? 'true' : 'false');
+  });
+
+  // Make “Shop” dropdown-only (no navigation)
+  (function(){
+    const toggle = document.querySelector('.dropdown .dropdown-toggle');
+    const wrap   = toggle?.parentElement;
+    if (!toggle || !wrap) return;
+    toggle.addEventListener('click', (e)=>{
+      e.preventDefault();
+      wrap.classList.toggle('submenu-open');
+      toggle.setAttribute('aria-expanded', wrap.classList.contains('submenu-open') ? 'true' : 'false');
+    });
+  })();
+
+  // Gapless marquee
+  (function(){
+    const track = document.getElementById('dev-track');
+    if (!track) return;
+    const BASE = track.innerHTML;
+    function build(){
+      track.innerHTML = BASE + BASE;
+      const seq = track.scrollWidth / 2;
+      const pxPerSec = window.innerWidth >= 900 ? 80 : 60;
+      track.style.setProperty('--dist', `-${seq}px`);
+      track.style.setProperty('--dur',  `${seq / pxPerSec}s`);
+    }
+    if (document.readyState === 'complete') build();
+    else window.addEventListener('load', build, { once:true });
+    let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+  })();
+</script>
+</body>
+</html>
